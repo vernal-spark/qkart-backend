@@ -65,6 +65,14 @@ userSchema.statics.isEmailTaken = async function (email) {
   }
 };
 
+/**
+ * Check if entered password matches the user's password
+ * @param {string} password
+ * @returns {Promise<boolean>}
+ */
+userSchema.methods.isPasswordMatch = async function (password) {
+};
+
 
 
 // TODO: CRIO_TASK_MODULE_UNDERSTANDING_BASICS
