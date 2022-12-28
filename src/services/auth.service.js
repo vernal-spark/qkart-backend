@@ -15,6 +15,12 @@ const ApiError = require("../utils/ApiError");
  * @returns {Promise<User>}
  */
 const loginUserWithEmailAndPassword = async (email, password) => {
+  const user=await userService.getUserByEmail(email)
+  // console.log(await user.isPasswordMatch(password))
+  if(!user || !(await user.isPasswordMatch(password))){
+    throw new ApiError(httpStatus.UNAUTHORIZED,"Incorrect Email or Password")
+  }
+  return user
 };
 
 module.exports = {

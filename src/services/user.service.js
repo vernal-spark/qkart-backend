@@ -49,6 +49,7 @@ const createUser=async(user)=>{
     if(await User.isEmailTaken(user.email)){
         throw new ApiError(httpStatus.OK,"Email Already Taken")
     }
+    // const hashedPassword=await bcrypt.hash(user.password,10)
     const result=await User.create(user)
     return result
 }

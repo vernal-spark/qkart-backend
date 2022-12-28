@@ -16,7 +16,15 @@ const { tokenTypes } = require("../config/tokens");
  * @param {string} [secret] - Secret key to sign the token, defaults to config.jwt.secret
  * @returns {string}
  */
-const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
+const generateToken = (_id, expires, type, secret = config.jwt.secret) => {
+  // console.log(_id)
+  const payload={
+    _id,
+    iat:Math.floor(Date.now() / 1000),
+    exp:expires,
+    type}
+  const token=jwt.sign(payload,secret)
+  return token
 };
 
 /**
@@ -35,6 +43,15 @@ const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
  * }
  */
 const generateAuthTokens = async (user) => {
+  // console.log(user)
+  const {_id}=user
+  const expires=Math.floor(Date.now()/1000)+config.jwt.accessExpirationMinutes*60
+  const type=tokenTypes.ACCESS
+  const accessToken=generateToken(_id,expires,type)
+  return{ access:{
+    "token":accessToken,
+    "expires":new Date(expires*1000)
+  }}
 };
 
 module.exports = {
