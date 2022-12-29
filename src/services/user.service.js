@@ -64,6 +64,7 @@ const createUser=async(user)=>{
  * @returns {Promise<User>}
  */
 const getUserAddressById = async (id) => {
+    return await User.findOne({_id:id},{email:1,address:1})
 };
 
 /**
@@ -81,5 +82,6 @@ const setAddress = async (user, newAddress) => {
 module.exports={getUserById,
     getUserByEmail,
     createUser,
-    setAddress
+    setAddress,
+    getUserAddressById
 }
