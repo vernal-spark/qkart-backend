@@ -83,6 +83,22 @@ userSchema.methods.isPasswordMatch = async function (password) {
   return bcrypt.compare(password,user.password)
 };
 
+/**
+ * Check if user have set an address other than the default address
+ * - should return true if user has set an address other than default address
+ * - should return false if user's address is the default address
+ *
+ * @returns {Promise<boolean>}
+ */
+ userSchema.methods.hasSetNonDefaultAddress = async function () {
+  const user = this;
+  // CRIO_UNCOMMENT_START_MODULE_TEST
+  // return user.address === config.default_address;
+  // CRIO_UNCOMMENT_END_MODULE_TEST
+  // CRIO_SOLUTION_START_MODULE_TEST
+  return user.address !== config.default_address;
+  // CRIO_SOLUTION_END_MODULE_TEST
+};
 
 
 // TODO: CRIO_TASK_MODULE_UNDERSTANDING_BASICS
